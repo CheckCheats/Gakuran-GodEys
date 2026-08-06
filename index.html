@@ -22,7 +22,9 @@
     border-bottom: 1px solid var(--border);
     background: linear-gradient(90deg, rgba(124,92,255,.08), transparent 40%, rgba(124,92,255,.08));
   }
-  h1 { font-size: 22px; font-weight: 700; letter-spacing: .5px; text-align: center; }
+  h1 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: .5px;
+    text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  h1 .brand { height: 36px; width: auto; display: inline-block; }
   h1 span { color: var(--accent); }
   .sync { font-size: 12px; color: var(--dim,#8a90a5); text-align: center; }
   .controls {
@@ -129,7 +131,7 @@
 </head>
 <body>
 <header>
-  <h1>👁 Gakuran <span>上帝之眼</span></h1>
+  <h1><img class="brand" src="assets/A_minimalist_all_seeing_eye_em_2026-08-06T01-15-23.png" alt="上帝之眼"> <span>上帝之眼</span></h1>
   <div class="sync" id="sync"></div>
 </header>
 
@@ -190,7 +192,7 @@ function render() {
   });
 
   document.getElementById("stats").textContent =
-    list.length + " / " + players.length + " 在线成员";
+    "已收录数据 " + players.length + " NOOB";
 
   if (!list.length) {
     g.innerHTML = '<div class="empty">未找到匹配。换个关键字试试。</div>';
