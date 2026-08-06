@@ -49,59 +49,86 @@
   }
   .card {
     background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    overflow: hidden; transition: transform .15s, box-shadow .15s;
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .15s, box-shadow .15s;
   }
   .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(124,92,255,.12); }
-  .avatar { width: 100%; aspect-ratio: 1 / 1; background: var(--panel); display: flex; align-items: center; justify-content: center; }
+  .avatar { width: 100%; aspect-ratio: 3 / 2; background: var(--panel);
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid var(--border); }
   .avatar .ph { color: var(--dim,#8a90a5); font-size: 12px; }
   .avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .body { padding: 14px 16px; }
-  .name { font-size: 17px; font-weight: 700; }
-  .name .uname { color: var(--dim,#8a90a5); font-weight: 400; font-size: 13px; margin-left: 6px; }
-  .tags { display: flex; gap: 6px; margin: 8px 0; flex-wrap: wrap; }
+  .body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .name { font-size: 17px; font-weight: 700; line-height: 1.3;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
+  .name .uname { color: var(--dim,#8a90a5); font-weight: 400; font-size: 13px; overflow-wrap: anywhere; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
   .tag {
-    font-size: 11px; padding: 3px 9px; border-radius: 20px;
+    font-size: 11px; padding: 3px 9px; border-radius: 20px; white-space: nowrap;
     background: rgba(124,92,255,.14); color: var(--accent);
   }
+  .tag.girl { background: rgba(76,110,245,.16); color: #6f93ff; }
+  .tag.boy  { background: rgba(255,92,124,.14); color: var(--accent2); }
   .tag.gold { background: rgba(255,209,102,.14); color: var(--gold); }
-  .tag.pink { background: rgba(53,220,124,.14); color: #4cdf9e; }
-  .rarity { display:inline-block; font-size:10px; font-weight:700; padding:1px 7px; border-radius:10px; color:#fff; letter-spacing:.3px; }
-  .colors { display:flex; gap:6px; margin-top:8px; align-items:center; }
-  .swatch { width:22px; height:22px; border-radius:5px; border:1px solid var(--border); }
-  .colors .lbl { font-size:11px; color: var(--dim,#8a90a5); }
+  .tag.pink { background: rgba(255,92,124,.14); color: var(--accent2); }
+  .rarity { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+    padding: 1px 7px; border-radius: 10px; color: #fff; letter-spacing: .3px; }
+  .slot {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 4px 10px; font-size: 12px; white-space: nowrap;
+  }
+  .slot.eq { border-color: var(--accent); color: var(--accent); }
+  .swatch { width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; border: 1px solid var(--border); }
+  .info { display: grid; grid-template-columns: 64px 1fr; gap: 8px 10px; margin-top: 2px; }
+  .info .k { font-size: 11px; color: var(--dim,#8a90a5); padding-top: 2px; }
+  .info .v { font-size: 13px; font-weight: 500; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .meta { font-size: 11px; color: var(--dim,#8a90a5); border-top: 1px solid var(--border);
+    padding-top: 8px; margin-top: auto; }
   .modal { display:none; position:fixed; inset:0; background:rgba(8,10,16,.75);
     z-index:100; align-items:center; justify-content:center; padding:20px; }
   .modal.open { display:flex; }
   .modal-box { background:var(--panel); border:1px solid var(--border); border-radius:16px;
-    max-width:720px; width:100%; max-height:88vh; overflow:auto; padding:22px; position:relative; }
-  .modal-close { position:sticky; float:right; background:none; border:none; color:var(--dim,#8a90a5);
-    font-size:22px; cursor:pointer; }
-  .modal h2 { font-size:20px; margin-bottom:2px; }
-  .modal .sub { color:var(--dim,#8a90a5); font-size:13px; margin-bottom:16px; }
-  .app-sec { margin-bottom:18px; }
-  .app-sec h3 { font-size:13px; color:var(--accent); letter-spacing:.5px; margin-bottom:8px;
-    padding-bottom:5px; border-bottom:1px solid var(--border); }
-  .app-grid { display:flex; gap:10px; flex-wrap:wrap; }
-  .app-item { width:84px; text-align:center; background:var(--card); border:1px solid var(--border);
-    border-radius:10px; padding:6px; }
-  .app-item img { width:72px; height:72px; object-fit:cover; border-radius:6px; background:var(--bg); }
-  .app-item .ai-label { font-size:10px; color:var(--dim,#8a90a5); margin-top:4px; }
+    max-width:760px; width:100%; max-height:90vh; overflow:auto; padding:0; position:relative; }
+  .modal-close { position:absolute; top:12px; right:14px; z-index:2; width:32px; height:32px;
+    border-radius:50%; border:1px solid var(--border); background:rgba(15,17,23,.6);
+    color:var(--text); font-size:16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; }
+  .modal-close:hover { border-color:var(--accent); color:var(--accent); }
+  .m-head { display:flex; gap:14px; align-items:center; padding:20px 22px 16px;
+    border-bottom:1px solid var(--border); }
+  .m-head .ava, .m-head .ava-ph { width:64px; height:64px; border-radius:12px;
+    object-fit:cover; background:var(--card); border:1px solid var(--border); flex:none; }
+  .m-head .ava-ph { display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--dim); }
+  .m-head h2 { font-size:20px; margin:0 0 2px; }
+  .m-head .sub { color:var(--dim,#8a90a5); font-size:13px; }
+  .m-tags { display:flex; gap:6px; flex-wrap:wrap; padding:12px 22px 0; }
+  .m-body { padding:4px 22px 22px; }
+  .app-sec { margin-top:18px; }
+  .app-sec > h3 { font-size:13px; color:var(--accent); letter-spacing:.5px;
+    margin:0 0 10px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+  .app-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:10px; }
+  .app-item { text-align:center; background:var(--card); border:1px solid var(--border);
+    border-radius:10px; padding:8px 6px; }
+  .app-item img { width:100%; aspect-ratio:1/1; border-radius:6px; background:var(--bg); display:block; }
+  .app-item .ph { width:100%; aspect-ratio:1/1; border-radius:6px; background:var(--bg);
+    display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--dim); }
+  .app-item .ai-label { font-size:10px; color:var(--dim,#8a90a5); margin-top:5px; }
   .app-item .ai-id { font-size:9px; color:var(--dim,#8a90a5); }
-  .app-item .rarity { margin-top:3px; }
+  .app-item .rarity { margin-top:4px; }
+  .kv { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:8px; }
   .plain-item { display:flex; gap:10px; align-items:center; background:var(--card);
-    border:1px solid var(--border); border-radius:10px; padding:8px 12px; margin-bottom:6px; flex-wrap:wrap; }
-  .plain-item .lbl { font-size:12px; color:var(--dim,#8a90a5); min-width:56px; }
-  .plain-item .val { font-size:13px; font-weight:600; }
-  .info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin-top: 10px; }
-  .info .k { font-size: 11px; color: var(--dim,#8a90a5); }
-  .info .v { font-size: 13px; font-weight: 500; }
-  .slotrow { display: flex; gap: 8px; align-items: center; margin-top: 10px; font-size: 12px; }
-  .slotrow .lbl { color: var(--dim,#8a90a5); min-width: 52px; }
-  .slot {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
-    padding: 4px 10px; font-size: 12px;
-  }
-  .slot.eq { border-color: var(--accent); color: var(--accent); }
+    border:1px solid var(--border); border-radius:10px; padding:9px 12px; }
+  .plain-item .lbl { font-size:12px; color:var(--dim,#8a90a5); min-width:64px; flex:none; }
+  .plain-item .val { font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .chip { font-size:10px; padding:1px 7px; border-radius:10px;
+    background:rgba(124,92,255,.16); color:var(--accent); white-space:nowrap; }
+  .bars { display:grid; gap:10px; }
+  .bar { display:grid; grid-template-columns:48px 1fr 36px; align-items:center; gap:10px; }
+  .bar .bl { font-size:12px; color:var(--dim); }
+  .bar .bt { height:8px; border-radius:6px; background:var(--card); overflow:hidden; border:1px solid var(--border); }
+  .bar .bf { height:100%; border-radius:6px; }
+  .bar .bv { font-size:12px; text-align:right; color:var(--text); }
   .empty { text-align: center; padding: 60px; color: var(--dim,#8a90a5); }
   @media (max-width: 640px) { .controls { padding: 12px 16px; } .grid { padding: 14px 16px; } }
 </style>
@@ -185,7 +212,7 @@ function render() {
       const r = RARITY && RARITY.unif[un];
       const c = r && RARITY.colors[r] || '#888';
       return '<span class="slot' + (eq ? ' eq' : '') + '">' + esc(un) +
-        (r ? ' <span class="rarity" style="background:' + c + '">' + r + '</span>' : '') + '</span>';
+        (r ? '<span class="rarity" style="background:' + c + '">' + r + '</span>' : '') + '</span>';
     };
     const uslots = uslot(p.unif1, p.unifEq == 1) + uslot(p.unif2, p.unifEq == 2);
     const sslot = function(s, eq) {
@@ -193,7 +220,7 @@ function render() {
       const r = RARITY && RARITY.style && RARITY.style[s];
       const c = r && RARITY.colors && RARITY.colors[r] || '#888';
       return '<span class="slot' + (eq ? ' eq' : '') + '">' + esc(s) +
-        (r ? ' <span class="rarity" style="background:' + c + '">' + r + '</span>' : '') + '</span>';
+        (r ? '<span class="rarity" style="background:' + c + '">' + r + '</span>' : '') + '</span>';
     };
     const sslots = sslot(p.style1, p.styleEq == 1) + sslot(p.style2, p.styleEq == 2);
     const avImg = p.avatar
@@ -205,17 +232,17 @@ function render() {
       <div class="body">
         <div class="name">${esc(p.first || "")} ${esc(p.last || "")}<span class="uname">@${esc(p.username || "")}</span></div>
         <div class="tags">
-          <span class="tag"${p.gender==='Female'?' style="color:#4c6ef5;background:rgba(76,110,245,.14)"':''}>${esc(p.gender||"")}</span>
+          <span class="tag ${p.gender==='Female'?'girl':(p.gender==='Male'?'boy':'')}">${esc(p.gender||"")}</span>
           <span class="tag">${esc(p.ethnicity||"")}</span>
-          <span class="tag">${esc(p.grade||"")}</span>
+          <span class="tag gold">${esc(p.grade||"")}</span>
           <span class="tag pink">${esc(p.age!=null?p.age+" 岁":"")}</span>
         </div>
         <div class="info">
-          <div><div class="k">身高</div><div class="v">${h(p.heightCm)}</div></div>
-          <div><div class="k">制服</div><div class="v">${uslots}</div></div>
-          <div><div class="k">战斗风格</div><div class="v">${sslots}</div></div>
-          <div><div class="k">UID</div><div class="v">${fmt(p.uid)}</div></div>
+          <div class="k">身高</div><div class="v">${h(p.heightCm)}</div>
+          <div class="k">制服</div><div class="v">${uslots}</div>
+          <div class="k">战斗风格</div><div class="v">${sslots}</div>
         </div>
+        <div class="meta">UID ${fmt(p.uid)}</div>
       </div>
     </div>`;
   }).join("");
@@ -246,66 +273,78 @@ function appItem(label, id, rar) {
   id = String(id || '');
   if (!id || id === '0' || id === '') return '';
   var th = thumbOf(id);
-  var img = th ? '<img loading="lazy" src="' + th + '" onerror="this.onerror=null;this.style.display=\'none\'">'
-               : '<img loading="lazy" src="https://www.roblox.com/asset-thumbnail/image?assetId=' + id + '&width=150&height=150&format=png&quality=100" onerror="this.style.display=\'none\'">';
-  return '<div class="app-item">' + img + '<div class="ai-label">' + label + '</div>' +
+  var img = th
+    ? '<img loading="lazy" src="' + th + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+    : '<img loading="lazy" src="https://www.roblox.com/asset-thumbnail/image?assetId=' + id + '&width=150&height=150&format=png&quality=100" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
+  return '<div class="app-item">' + img + '<div class="ph" style="display:none">无图</div>' +
+    '<div class="ai-label">' + label + '</div>' +
     (rar ? rarityBadge(rar) : '') + '<div class="ai-id">#' + id + '</div></div>';
 }
-function sec(title, inner) { return '<div class="app-sec"><h3>' + title + '</h3><div class="app-grid">' + inner + '</div></div>'; }
-function sec2(title, inner) { return '<div class="app-sec"><h3>' + title + '</h3>' + inner + '</div>'; }
-function plain(p, lbl, val) {
-  if (val == null || val === '' || val === 0) return '';
-  return '<div class="plain-item"><span class="lbl">' + lbl + '</span><span class="val">' + esc(val) + '</span></div>';
+function sec(title, inner) { return '<div class="app-sec"><h3>' + title + '</h3>' + inner + '</div>'; }
+function appGrid(inner) { return '<div class="app-grid">' + inner + '</div>'; }
+function kv(items) {
+  if (!items.length) return '<div class="empty" style="padding:14px">无</div>';
+  return '<div class="kv">' + items.map(function(it) {
+    return '<div class="plain-item"><span class="lbl">' + it.lbl + '</span>' +
+      '<span class="val">' + it.val + (it.rar ? ' ' + rarityBadge(it.rar) : '') +
+      (it.eq ? ' <span class="chip">穿着中</span>' : '') + '</span></div>';
+  }).join('') + '</div>';
 }
-function unifSection(p) {
-  var r1 = (RARITY && RARITY.unif && RARITY.unif[p.unif1]) || null;
-  var r2 = (RARITY && RARITY.unif && RARITY.unif[p.unif2]) || null;
-  var eq1 = p.unifEq == 1 ? '（穿着中）' : '';
-  var eq2 = p.unifEq == 2 ? '（穿着中）' : '';
-  var i1 = p.unif1 ? '<div class="plain-item"><span class="lbl">槽1</span><span class="val">' + esc(p.unif1) + '</span>' + rarityBadge(r1) + ' ' + eq1 + '</div>' : '';
-  var i2 = p.unif2 ? '<div class="plain-item"><span class="lbl">槽2</span><span class="val">' + esc(p.unif2) + '</span>' + rarityBadge(r2) + ' ' + eq2 + '</div>' : '';
-  return sec2('制服（' + (p.unif1||'') + (p.unif2 ? ' / ' + p.unif2 : '') + '）', i1 + i2);
-}
-function styleSection(p) {
-  var r1 = (RARITY && RARITY.style && RARITY.style[p.style1]) || null;
-  var r2 = (RARITY && RARITY.style && RARITY.style[p.style2]) || null;
-  var eq1 = p.styleEq == 1 ? '（装备中）' : '';
-  var eq2 = p.styleEq == 2 ? '（装备中）' : '';
-  var i1 = p.style1 ? '<div class="plain-item"><span class="lbl">槽1</span><span class="val">' + esc(p.style1) + '</span>' + rarityBadge(r1) + ' ' + eq1 + '</div>' : '';
-  var i2 = p.style2 ? '<div class="plain-item"><span class="lbl">槽2</span><span class="val">' + esc(p.style2) + '</span>' + rarityBadge(r2) + ' ' + eq2 + '</div>' : '';
-  return sec2('战斗风格（' + (p.style1||'') + (p.style2 ? ' / ' + p.style2 : '') + '）', i1 + i2);
+function bars(items) {
+  return '<div class="bars">' + items.map(function(it) {
+    var v = Math.max(0, Math.min(100, Number(it.v) || 0));
+    var col = v > 50 ? '#4cdf9e' : (v > 20 ? '#ffd166' : '#ff5c7c');
+    return '<div class="bar"><span class="bl">' + it.lbl + '</span>' +
+      '<span class="bt"><span class="bf" style="width:' + v + '%;background:' + col + '"></span></span>' +
+      '<span class="bv">' + v + '</span></div>';
+  }).join('') + '</div>';
 }
 function openDetail(uid) {
   var p = players.find(function(x){ return x.uid == uid; });
   if (!p) return;
   var R = '';
-  // 外貌：脸部 + 肤色/发色
-  var skinSw = p.skin ? '<div class="app-item"><div class="swatch" style="width:72px;height:72px;border-radius:6px;background:' + p.skin + '"></div><div class="ai-label">肤色</div><div class="ai-id">' + p.skin + '</div></div>' : '';
-  var hairSw = p.hairColor ? '<div class="app-item"><div class="swatch" style="width:72px;height:72px;border-radius:6px;background:' + p.hairColor + '"></div><div class="ai-label">发色</div><div class="ai-id">' + p.hairColor + '</div></div>' : '';
-  R += sec('外貌', appItem('脸型', p.faceId, rarityOf('face', p.faceId)) +
-                  appItem('发型', p.hairId, null) +
-                  skinSw + hairSw);
-  // 骨骼
-  R += sec2('穿着部位',
-    appItem('头饰', p.headId, null) +
-    appItem('脸饰', p.faceAcc, null) +
-    appItem('颈部', p.neckId, null) +
-    appItem('肩部', p.shoulderId, null) +
-    appItem('腰部', p.waistId, null) +
-    appItem('背部', p.backId, null));
+  // 外貌：脸型 + 发型 + 肤色/发色
+  var skinSw = p.skin ? '<div class="app-item"><div class="swatch" style="background:' + p.skin + '"></div><div class="ai-label">肤色</div><div class="ai-id">' + p.skin + '</div></div>' : '';
+  var hairSw = p.hairColor ? '<div class="app-item"><div class="swatch" style="background:' + p.hairColor + '"></div><div class="ai-label">发色</div><div class="ai-id">' + p.hairColor + '</div></div>' : '';
+  R += sec('外貌', appGrid(
+    appItem('脸型', p.faceId, rarityOf('face', p.faceId)) +
+    appItem('发型', p.hairId, null) + skinSw + hairSw));
+  // 穿着部位
+  R += sec('穿着部位', appGrid(
+    appItem('头饰', p.headId, null) + appItem('脸饰', p.faceAcc, null) +
+    appItem('颈部', p.neckId, null) + appItem('肩部', p.shoulderId, null) +
+    appItem('腰部', p.waistId, null) + appItem('背部', p.backId, null)));
   // 制服
-  R += unifSection(p);
-  // 风格
-  R += styleSection(p);
-  // 属性
-  R += sec2('属性', plain(p, '制服1', p.unif1) + plain(p, '制服2', p.unif2) +
-    plain(p, '风格1', p.style1) + plain(p, '风格2', p.style2) +
-    plain(p, '性别', p.gender) + plain(p, '族裔', p.ethnicity) +
-    plain(p, '年龄', p.age) + plain(p, '年级', p.grade) + plain(p, 'UID', p.uid));
-
+  R += sec('制服', kv([
+    p.unif1 ? { lbl: '槽位 1', val: esc(p.unif1), rar: (RARITY && RARITY.unif && RARITY.unif[p.unif1]) || null, eq: p.unifEq == 1 } : null,
+    p.unif2 ? { lbl: '槽位 2', val: esc(p.unif2), rar: (RARITY && RARITY.unif && RARITY.unif[p.unif2]) || null, eq: p.unifEq == 2 } : null
+  ].filter(Boolean)));
+  // 战斗风格
+  R += sec('战斗风格', kv([
+    p.style1 ? { lbl: '槽位 1', val: esc(p.style1), rar: (RARITY && RARITY.style && RARITY.style[p.style1]) || null, eq: p.styleEq == 1 } : null,
+    p.style2 ? { lbl: '槽位 2', val: esc(p.style2), rar: (RARITY && RARITY.style && RARITY.style[p.style2]) || null, eq: p.styleEq == 2 } : null
+  ].filter(Boolean)));
+  // 状态
+  R += sec('状态', bars([{ lbl: '饥饿', v: p.hunger }, { lbl: '口渴', v: p.thirst }]));
+  // 档案
+  R += sec('档案', kv([
+    { lbl: '性别', val: esc(p.gender) }, { lbl: '族裔', val: esc(p.ethnicity) },
+    { lbl: '年龄', val: esc(p.age) }, { lbl: '年级', val: esc(p.grade) },
+    { lbl: 'UID', val: fmt(p.uid) }
+  ]));
+  // 头部：头像 + 姓名
+  var avSrc = p.avatar ? p.avatar : thumbUrl(p.uid, '150x150');
+  var av = '<img class="ava" src="' + avSrc + '" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+    '<div class="ava-ph" style="display:none">无头像</div>';
   document.getElementById('modal-body').innerHTML =
-    '<h2>' + (p.first||'') + ' ' + (p.last||'') + '</h2>' +
-    '<div class="sub">@' + (p.username||'') + ' · ' + (p.ethnicity||'') + ' · ' + (p.grade||'') + '</div>' + R;
+    '<div class="m-head">' + av + '<div><h2>' + (p.first || '') + ' ' + (p.last || '') + '</h2>' +
+    '<div class="sub">@' + (p.username || '') + ' · ' + (p.ethnicity || '') + ' · ' + (p.grade || '') + '</div></div></div>' +
+    '<div class="m-tags">' +
+      '<span class="tag ' + (p.gender === 'Female' ? 'girl' : (p.gender === 'Male' ? 'boy' : '')) + '">' + esc(p.gender || '') + '</span>' +
+      '<span class="tag">' + esc(p.ethnicity || '') + '</span>' +
+      '<span class="tag gold">' + esc(p.grade || '') + '</span>' +
+      '<span class="tag pink">' + esc(p.age != null ? p.age + ' 岁' : '') + '</span>' +
+    '</div><div class="m-body">' + R + '</div>';
   document.getElementById('modal').classList.add('open');
 }
 function closeDetail() { document.getElementById('modal').classList.remove('open'); }
